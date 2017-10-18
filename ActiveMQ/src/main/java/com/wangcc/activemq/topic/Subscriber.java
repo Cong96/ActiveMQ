@@ -11,10 +11,21 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.wangcc.activemq.Constants;
 
+/**
+ * @ClassName: Subscriber
+ * @Description: 对于订阅模式，对订阅者提出了特殊的要求，要想收到消息，必须先订阅，而且订阅进程必须一直处于运行状态！实际上，有时候消费者重启了下，那么这个消费者将丢失掉一些消息，那么能否避免这样的情况呢？ActiveMQ已经替我们想好了，就是持久化订阅！
+ * @author wangcc
+ * @date 2017年10月18日 上午9:59:29
+ * 
+ */
 public class Subscriber {
+	private static Logger logger = LoggerFactory.getLogger(Subscriber.class);
+
 	public static void main(String[] args) {
 		// 连接工厂
 		ConnectionFactory factory;
@@ -43,6 +54,7 @@ public class Subscriber {
 
 				public void onMessage(Message message) {
 					try {
+						logger.info("订阅者01接收到消息：{}", ((TextMessage) message).getText());
 						System.out.println("订阅者01接收到消息：" + ((TextMessage) message).getText());
 					} catch (JMSException e) {
 						e.printStackTrace();

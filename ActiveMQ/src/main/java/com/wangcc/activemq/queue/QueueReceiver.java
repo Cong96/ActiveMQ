@@ -32,6 +32,7 @@ public class QueueReceiver {
 			session = connection.createSession(Boolean.FALSE, Session.AUTO_ACKNOWLEDGE);
 			destination = session.createQueue("firstQueue");
 			messageConsumer = session.createConsumer(destination);
+			messageConsumer.receive(50000);
 			messageConsumer.setMessageListener(new MessageListener() {
 
 				public void onMessage(Message message) {

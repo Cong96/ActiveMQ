@@ -61,8 +61,14 @@
 		<property name="deliveryPersistent">
 			<value>true</value>
 		</property>
-		
+		<property name="messageConverter" ref="objectMessageConverter"></property>
 	</bean>
+	
+	<bean id="objectMessageConverter" class="com.wangcc.activemq.converter.ObjectMessageConverter"></bean>
+	
+	
+	
+	
 	<!-- queue-->
 	<bean id="queue"
 		class="org.apache.activemq.command.ActiveMQQueue">
@@ -210,4 +216,6 @@ SimpleMessageListenerContainer会在一开始的时候就创建一个会话sessi
 </bean>  
 <!-- responseQueue对应的监听器 -->  
 <bean id="responseQueueListener" class="com.wangcc.activemq.spring.listener.ResponseQueueListener"/>  
+
+
 </beans>
