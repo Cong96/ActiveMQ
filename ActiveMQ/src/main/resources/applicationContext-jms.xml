@@ -93,7 +93,7 @@ SimpleMessageListenerContainer会在一开始的时候就创建一个会话sessi
  <!-- 
  setClientID call not supported on proxy for shared Connection. Set the 'clientId' property on the SingleConnectionFactory instead.
   	所以在这个监听器容器中不能使用connectionFactory(CachingConnectionFactory)
-  	
+  	这里注意下connectionFactory，用的是activemq提供的connectionFactory，是因为spring提供的connectionFactory没有clientId属性；autoStartup是定义是否加载spring配置时自动启动监听；destination指具体需要监听的topic名字，messageListener指具体的监听处理程序，要实现MessageListener接口。
   -->
 	<bean id="topicReceiverListenerContainer"
 		class="org.springframework.jms.listener.DefaultMessageListenerContainer">

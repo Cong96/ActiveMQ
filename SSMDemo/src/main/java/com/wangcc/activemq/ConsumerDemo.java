@@ -18,7 +18,7 @@ public class ConsumerDemo {
 		Session session = connection.createSession(Boolean.FALSE, Session.AUTO_ACKNOWLEDGE);
 		Destination destination = session.createQueue("queue1");
 		MessageConsumer messageConsumer = session.createConsumer(destination);
-
+		session.createDurableSubscriber(arg0, arg1)
 		// while (true) {
 		// TextMessage textMessage = (TextMessage) messageConsumer.receive(100000);//
 		// 设置延时为100s

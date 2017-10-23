@@ -29,6 +29,5 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/User/Desktop/spring-jms-3.1.2.RELEASE.jar" sourcepath="D:/User/Desktop/spring-jms-3.1.2.RELEASE-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.wangcc.ssm.dao.CoachDao;
@@ -19,6 +21,7 @@ import com.wangcc.ssm.util.MybatisUtil;
 import com.wangcc.ssm.util.ReflectUtil;
 
 public class MybatisTest {
+	private static Logger logger = LoggerFactory.getLogger(MybatisTest.class);
 
 	@Test
 	public void testReflect() throws Exception {
@@ -66,7 +69,7 @@ public class MybatisTest {
 			ComplexParamMap<Coach> cmap = new ComplexParamMap<Coach>();
 			Coach coach = new Coach();
 			coach.setName("jackson");
-			ParamMap paramMap = new ParamMap("name", "age");
+			ParamMap paramMap = new ParamMap("id", "name");
 			cmap.setParamMap(paramMap);
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("name", "jackson");
@@ -80,22 +83,48 @@ public class MybatisTest {
 			page.setPageNo(2);
 			List<Coach> list = mapper.querybyPage(page);
 			System.out.println(JSON.toJSONString(list));
-			// FilmMapper mapper = session.getMapper(FilmMapper.class);
-			// Map<String, Object> params = new HashMap<String, Object>();
-			// params.put("orderKey", "id desc");
-			//
-			// List<Film> filmList = mapper.getAllFilmOrder(params);
-			// System.out.println(filmList.get(0).getFname());
-			//
-			// // 显示所有电影信息
-			// for (Film filmObj : filmList) {
-			//
-			// System.out.println("电影ID：" + filmObj.getId() + " 电影名：" + filmObj.getFname());
-			//
-			// }
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+	}
+
+	@Test
+	public void testMap() {
+		SqlSession session = null;
+		System.out.println("Dd");
+		try {
+
+			session = MybatisUtil.getCurrentSession();
+			CoachDao mapper = session.getMapper(CoachDao.class);
+			Map<Object, Object> map = mapper.testMap();
+			System.out.println(JSON.toJSONString(map));
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("testMap Error:{}", e);
+		} finally {
+			session.close();
+		}
+	}
+
+	@Test
+	public void testMapKey() {
+		SqlSession session = null;
+		System.out.println("Dd");
+		try {
+
+			session = MybatisUtil.getCurrentSession();
+			CoachDao mapper = session.getMapper(CoachDao.class);
+			Map<Integer, Map<String, Object>> map = mapper.testMapKey();
+			System.out.println(JSON.toJSONString(map));
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("testMap Error:{}", e);
 		} finally {
 			session.close();
 		}
