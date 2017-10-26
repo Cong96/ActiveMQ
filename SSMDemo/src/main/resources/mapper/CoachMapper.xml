@@ -15,12 +15,20 @@ select test_coach.nextval from dual
 </selectKey>
 insert into coach (id,name,age,salary) values(test_coach.currval,#{name},#{age},#{salary})
 </insert>
+
+<!--
  <select id="queryMap" resultType="map" parameterType="ComplexParamMap">
- select name,age from coach where name=#{obj.name}
+ select id,name from coach where name=#{obj.name}
  </select>
+ 
 <select id="querybyPage" resultType="Coach" parameterType="Page">
 select * from coach where name=#{self.name}
 </select>
-
-
+<select id="testMap" resultType="map">
+ select name,age from coach 
+</select>
+<select id="testMapKey" resultType="map">
+ select id,name from coach 
+</select>
+  -->
 </mapper>

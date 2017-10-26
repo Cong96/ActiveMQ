@@ -48,7 +48,7 @@ public class JMSDemo {
 		connection.start();
 		// 3.创建Session 前面两步都是为了创建Session（上下文环境对象）
 		Session session = connection.createSession(Boolean.FALSE, Session.AUTO_ACKNOWLEDGE);
-		// 4.通过Sesion创建Destination对象，当P2P模式下是队列，在pub/sub模式下是主题（TOPIC）
+		// 4.通过Sesion创建Destination对象，当PP模式下是队列，在pub/sub模式下是主题（TOPIC）
 		Destination destination = session.createQueue("queue1");
 		// 5.创建MessageProducer对象 通过Session创建发送消息的生产者
 		MessageProducer messageProducer = session.createProducer(destination);

@@ -28,13 +28,24 @@ public class QueueProvider {
 					Constants.ACTIVEMQ_URL);
 			connection = connectionFactory.createConnection();
 			connection.start();
-			session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
+			// 开启事务
+			session = connection.createSession(Boolean.TRUE, Session.CLIENT_ACKNOWLEDGE);
 
-			destination = session.createQueue("firstQueue");
+			destination = session.createQueue("test1Queue");
 			messageProducer = session.createProducer(destination);
-			TextMessage textMessage = session.createTextMessage();
-			textMessage.setText("KOBE");
-			messageProducer.send(textMessage);
+
+			int i = 0;
+			while (i < 3) {
+
+				TextMessage textMessage = session.createTextMessage();
+				textMessage.setText("KOBEeee" + i);
+				messageProducer.send(textMessage);
+				System.out.println(i);
+
+				i++;
+
+			}
+			// 提交事务
 			session.commit();
 			logger.info("Send SUCCESS!");
 		} catch (Exception e) {

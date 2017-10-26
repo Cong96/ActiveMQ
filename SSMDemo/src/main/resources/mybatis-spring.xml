@@ -5,27 +5,37 @@
             xmlns:p="http://www.springframework.org/schema/p"  
             xmlns:tx="http://www.springframework.org/schema/tx"  
             xmlns:context="http://www.springframework.org/schema/context"  
+            xmlns:task="http://www.springframework.org/schema/task"   
+            
             xsi:schemaLocation="  
                 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd  
                 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd  
-                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/task    
+http://www.springframework.org/schema/task/spring-task-3.0.xsd ">
                <!-- 通过aop命名空间的<aop:aspectj-autoproxy />声明自动为spring容器中那些配置@aspectJ切面的bean创建代理，织入切面。当然，spring
 在内部依旧采用AnnotationAwareAspectJAutoProxyCreator进行自动代理的创建工作，但具体实现的细节已经被<aop:aspectj-autoproxy />隐藏起来了
 <aop:aspectj-autoproxy />有一个proxy-target-class属性，默认为false，表示使用jdk动态代理织入增强，当配为<aop:aspectj-autoproxy  poxy-target-class="true"/>时，表示使用CGLib动态代理技术织入增强。不过即使proxy-target-class设置为false，如果目标类没有声明接口，则spring将自动使用CGLib动态代理。 
 
 
 -->
+             <task:annotation-driven/>    
                
                         <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
                         
             <!-- 自动扫描    https://zhidao.baidu.com/question/73410686.html-->  
-    <context:component-scan base-package="com.wangcc.ssm,com.wangcc.test.properties" />  
+    <context:component-scan base-package="com.wangcc.ssm,com.wangcc.quartz,com.wangcc.test.properties" />  
     <!-- 引入配置文件 -->  
     <bean id="propertyConfigurer"  
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
         <property name="location" value="classpath:jdbc.properties" />  
+               <property name="ignoreUnresolvablePlaceholders" value="true" /> 
     </bean>  
-  
+  <!-- http://www.cnblogs.com/king1302217/p/3890277.html 使用多个配置文件时   
+  在spring的xml配置文件中当有多个*.properties文件需要加载时
+  需要添加
+          <property name="ignoreUnresolvablePlaceholders" value="true" /> 
+  -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"  
         destroy-method="close">  
         <property name="driverClassName" value="${driver}" />  
