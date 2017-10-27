@@ -11,7 +11,9 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class QueueSender {
 	public static void main(String[] args) throws Exception {
-		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://10.18.3.66:61616");
+		// ConnectionFactory connectionFactory = new
+		// ActiveMQConnectionFactory("tcp://10.18.3.66:61616");
+		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("failover:(tcp://10.18.3.66:61617)");
 		Connection connection = connectionFactory.createConnection();
 		// 默认是关闭，所以这里需要开启
 		connection.start();

@@ -14,17 +14,19 @@ public class TopicSender {
 		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://10.18.3.66:61616");
 		Connection connection = connectionFactory.createConnection();
 		// 默认是关闭，所以这里需要开启
-		connection.start();
 		/*
 		 * 当没有事务的时候，是由签收模式来决定是否签收的
 		 * 
 		 */
 		Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
-		Destination destination = session.createTopic("my-topic");
+		Destination destination = session.createTopic("my-topic1");
 		MessageProducer producer = session.createProducer(destination);
+		// producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+		connection.start();
+
 		for (int i = 0; i < 3; i++) {
 			TextMessage textMessage = session.createTextMessage();
-			textMessage.setText("KOBEAAA" + i);
+			textMessage.setText("KOBEBBBDDEEEEE" + i);
 
 			producer.send(textMessage);
 		}

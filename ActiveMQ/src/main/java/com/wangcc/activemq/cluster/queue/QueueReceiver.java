@@ -25,12 +25,14 @@ import org.apache.activemq.ActiveMQConnectionFactory;
  */
 public class QueueReceiver {
 	public static void main(String[] args) throws JMSException {
-		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://10.18.3.66:61616");
+		// ConnectionFactory connectionFactory = new
+		// ActiveMQConnectionFactory("tcp://10.18.3.66:61617");
+		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("failover:(tcp://10.18.3.66:61617)");
 		Connection connection = connectionFactory.createConnection();
 		connection.start();
 		// 当有事务时，是由session.commit事务提交与否来确定是否消费者确认签收，我们测试下，我们不commit,我们可以无数次接受到该消息
 
-		Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
+		Session session = connection.createSession(Boolean.TRUE, Session.CLIENT_ACKNOWLEDGE);
 		Destination destination = session.createQueue("my-queue");
 		MessageConsumer messageConsumer = session.createConsumer(destination);
 		int i = 0;

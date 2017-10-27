@@ -18,7 +18,7 @@ public class TopicReceiver {
 		// 当有事务时，是由session.commit事务提交与否来确定是否消费者确认签收，我们测试下，我们不commit,我们可以无数次接受到该消息
 
 		Session session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
-		Destination destination = session.createTopic("my-topic");
+		Destination destination = session.createTopic("my-topic2");
 		MessageConsumer messageConsumer = session.createConsumer(destination);
 		int i = 0;
 		while (i < 3) {
@@ -28,7 +28,7 @@ public class TopicReceiver {
 			i++;
 
 		}
-		// session.commit();
+		session.commit();
 		session.close();
 		connection.close();
 	}

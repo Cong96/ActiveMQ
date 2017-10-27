@@ -49,3 +49,68 @@
 [2017-10-20 11:01:50:835] [com.wangcc.activemq.queue.QueueReceiver] [38] INFO [Received message: KOBEeee2 ]
 [2017-10-20 11:02:18:480] [com.wangcc.activemq.queue.QueueReceiver] [38] INFO [Received message: KOBEeee2 ]
 [2017-10-20 11:09:13:563] [com.wangcc.activemq.queue.QueueReceiver] [39] INFO [Received message: KOBEeee2 ]
+[2017-10-27 09:16:27:349] [org.apache.activemq.TransactionContext] [328] INFO [commit failed for transaction TX:ID:Ulic-Wangcc-50527-1509066749197-1:1:1]
+javax.jms.JMSException: COMMIT FAILED: Transaction marked rollback only xaErrorCode:100
+	at org.apache.activemq.util.JMSExceptionSupport.create(JMSExceptionSupport.java:49)
+	at org.apache.activemq.ActiveMQConnection.syncSendPacket(ActiveMQConnection.java:1377)
+	at org.apache.activemq.TransactionContext.syncSendPacketWithInterruptionHandling(TransactionContext.java:748)
+	at org.apache.activemq.TransactionContext.commit(TransactionContext.java:322)
+	at org.apache.activemq.ActiveMQSession.commit(ActiveMQSession.java:561)
+	at com.wangcc.activemq.cluster.queue.QueueReceiver.main(QueueReceiver.java:46)
+Caused by: javax.transaction.xa.XAException: COMMIT FAILED: Transaction marked rollback only xaErrorCode:100
+	at org.apache.activemq.transaction.Transaction.newXAException(Transaction.java:213)
+	at org.apache.activemq.transaction.Transaction.prePrepare(Transaction.java:115)
+	at org.apache.activemq.transaction.LocalTransaction.commit(LocalTransaction.java:54)
+	at org.apache.activemq.broker.TransactionBroker.commitTransaction(TransactionBroker.java:252)
+	at org.apache.activemq.broker.BrokerFilter.commitTransaction(BrokerFilter.java:114)
+	at org.apache.activemq.broker.TransportConnection.processCommitTransactionOnePhase(TransportConnection.java:529)
+	at org.apache.activemq.command.TransactionInfo.visit(TransactionInfo.java:100)
+	at org.apache.activemq.broker.TransportConnection.service(TransportConnection.java:330)
+	at org.apache.activemq.broker.TransportConnection$1.onCommand(TransportConnection.java:194)
+	at org.apache.activemq.transport.MutexTransport.onCommand(MutexTransport.java:50)
+	at org.apache.activemq.transport.WireFormatNegotiator.onCommand(WireFormatNegotiator.java:125)
+	at org.apache.activemq.transport.AbstractInactivityMonitor.onCommand(AbstractInactivityMonitor.java:301)
+	at org.apache.activemq.transport.TransportSupport.doConsume(TransportSupport.java:83)
+	at org.apache.activemq.transport.tcp.TcpTransport.doRun(TcpTransport.java:233)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:215)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: javax.jms.TransactionRolledBackException: COMMIT FAILED: Transaction marked rollback only xaErrorCode:100
+	at org.apache.activemq.transaction.Transaction.prePrepare(Transaction.java:116)
+	... 14 more
+Caused by: javax.jms.JMSException: Unmatched acknowledge: MessageAck {commandId = 6, responseRequired = false, ackType = 2, consumerId = ID:Ulic-Wangcc-50527-1509066749197-1:1:1:1, firstMessageId = ID:Ulic-Wangcc-50568-1509066800383-1:1:1:1:3, lastMessageId = ID:Ulic-Wangcc-50717-1509066986776-1:1:1:1:1, destination = queue://my-queue, transactionId = TX:ID:Ulic-Wangcc-50527-1509066749197-1:1:1, messageCount = 3, poisonCause = null}; Could not find Message-ID ID:Ulic-Wangcc-50568-1509066800383-1:1:1:1:3 in dispatched-list (start of ack)
+	at org.apache.activemq.broker.region.PrefetchSubscription.assertAckMatchesDispatched(PrefetchSubscription.java:462)
+	at org.apache.activemq.broker.region.PrefetchSubscription.acknowledge(PrefetchSubscription.java:211)
+	at org.apache.activemq.broker.region.AbstractRegion.acknowledge(AbstractRegion.java:528)
+	at org.apache.activemq.broker.region.RegionBroker.acknowledge(RegionBroker.java:475)
+	at org.apache.activemq.broker.BrokerFilter.acknowledge(BrokerFilter.java:89)
+	at org.apache.activemq.broker.BrokerFilter.acknowledge(BrokerFilter.java:89)
+	at org.apache.activemq.broker.TransactionBroker.acknowledge(TransactionBroker.java:276)
+	at org.apache.activemq.broker.BrokerFilter.acknowledge(BrokerFilter.java:89)
+	at org.apache.activemq.broker.TransportConnection.processMessageAck(TransportConnection.java:581)
+	at org.apache.activemq.command.MessageAck.visit(MessageAck.java:245)
+	... 9 more
+[2017-10-27 12:53:58:042] [org.apache.activemq.TransactionContext] [328] INFO [commit failed for transaction TX:ID:Ulic-Wangcc-61600-1509080037680-1:1:1]
+javax.jms.JMSException: Transaction 'TX:ID:Ulic-Wangcc-61600-1509080037680-1:1:1' has not been started.
+	at org.apache.activemq.broker.TransactionBroker.getTransaction(TransactionBroker.java:354)
+	at org.apache.activemq.broker.TransactionBroker.commitTransaction(TransactionBroker.java:251)
+	at org.apache.activemq.broker.BrokerFilter.commitTransaction(BrokerFilter.java:114)
+	at org.apache.activemq.broker.TransportConnection.processCommitTransactionOnePhase(TransportConnection.java:529)
+	at org.apache.activemq.command.TransactionInfo.visit(TransactionInfo.java:100)
+	at org.apache.activemq.broker.TransportConnection.service(TransportConnection.java:330)
+	at org.apache.activemq.broker.TransportConnection$1.onCommand(TransportConnection.java:194)
+	at org.apache.activemq.transport.MutexTransport.onCommand(MutexTransport.java:50)
+	at org.apache.activemq.transport.WireFormatNegotiator.onCommand(WireFormatNegotiator.java:125)
+	at org.apache.activemq.transport.AbstractInactivityMonitor.onCommand(AbstractInactivityMonitor.java:301)
+	at org.apache.activemq.transport.TransportSupport.doConsume(TransportSupport.java:83)
+	at org.apache.activemq.transport.tcp.TcpTransport.doRun(TcpTransport.java:233)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:215)
+	at java.lang.Thread.run(Thread.java:748)
+[2017-10-27 16:42:24:468] [org.apache.activemq.transport.failover.FailoverTransport] [1030] INFO [Successfully connected to tcp://10.18.3.66:61616]
+[2017-10-27 16:44:23:627] [org.apache.activemq.transport.failover.FailoverTransport] [1030] INFO [Successfully connected to tcp://10.18.3.66:61616]
+[2017-10-27 16:59:22:370] [org.apache.activemq.transport.failover.FailoverTransport] [1030] INFO [Successfully connected to tcp://10.18.3.66:61616]
+[2017-10-27 16:59:54:672] [org.apache.activemq.transport.failover.FailoverTransport] [1030] INFO [Successfully connected to tcp://10.18.3.66:61617]
+[2017-10-27 17:00:35:964] [org.apache.activemq.transport.failover.FailoverTransport] [1030] INFO [Successfully connected to tcp://10.18.3.66:61617]
+[2017-10-27 17:03:12:662] [org.apache.activemq.transport.failover.FailoverTransport] [1030] INFO [Successfully connected to tcp://10.18.3.66:61616]
+[2017-10-27 17:03:21:227] [org.apache.activemq.transport.failover.FailoverTransport] [1030] INFO [Successfully connected to tcp://10.18.3.66:61616]
+[2017-10-27 17:03:26:146] [org.apache.activemq.transport.failover.FailoverTransport] [1030] INFO [Successfully connected to tcp://10.18.3.66:61616]
+[2017-10-27 17:09:28:574] [org.apache.activemq.transport.failover.FailoverTransport] [1030] INFO [Successfully connected to tcp://10.18.3.66:61617]
